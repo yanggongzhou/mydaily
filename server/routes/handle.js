@@ -7,6 +7,7 @@ const SECRET = 'qwertyuiop'
 const UserModel = require('../models/user')
 const JsonModel = require('../models/Json')
 const SearchModel = require('../models/Search')
+const ProgramModel = require('../models/Program')
 
 module.exports = {
     // 登录路由处理
@@ -34,7 +35,6 @@ module.exports = {
         // 返回token
         response(res, 0, '登录成功', { username }, token)
     },
-
     async getJsonList (req,res){
         let avatar = req.body.avatar
         // 获取第几页数据, 不传为第一页
@@ -51,10 +51,10 @@ module.exports = {
     },
     async searchList (req, res){
         const search_list = await SearchModel.find({})
-
-        response(res, 0, '获取辅助查询列表成功', {
-            searchList:search_list,
-            programList:program_list
-        })
+        response(res, 0, '获取辅助查询列表成功', search_list)
+    },
+    async programList(req ,res){
+        const program_list = await ProgramModel.find({})
+        response(res , 0 , '获取项目列表成功' , program_list)
     }
 }

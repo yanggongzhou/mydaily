@@ -9,7 +9,7 @@
         @select="handleSelect">
         <i slot="prefix" class="el-icon-search"></i>
       </el-autocomplete>
-      
+
     </div>
   </div>
 </template>
@@ -18,10 +18,12 @@
   import { ListData } from '@/types'
   @Component
   export default class Header extends Vue{
-    private searchValue:string='';
-    private restaurants:Array<any> = [];
+    private searchValue: string='';
+    private restaurants: Array<any> = [];
+    private programData: object = [];//项目数据
     mounted(): void {
       this.getSearchList()
+      this.getProgramList()
     }
     public handleSelect(val: string): void {
       console.log(val)
@@ -41,6 +43,11 @@
     private getSearchList():void {
       this.$https.SearchList().then((res:any)=>{
         this.restaurants = res.data
+      })
+    }
+    private getProgramList():void {
+      this.$https.ProgramList().then((res:any)=>{
+        this.programData = res.data
       })
     }
   }
